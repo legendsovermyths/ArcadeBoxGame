@@ -9,6 +9,9 @@
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
+      <div id="white-overlay">
+        <div id="loading-animation"></div>
+      </div>
       <canvas id="unity-canvas" width=1920 height=1080 tabindex="-1"></canvas>
       <div id="unity-loading-bar">
         <div id="unity-logo"></div>
@@ -17,11 +20,6 @@
         </div>
       </div>
       <div id="unity-warning"> </div>
-      <div id="unity-footer">
-
-        <div id="unity-fullscreen-button"></div>
-       
-      </div>
     </div>
     <script>
 
@@ -37,6 +35,12 @@
       // If type=='warning', a yellow highlight color is used.
       // Modify or remove this function to customize the visually presented
       // way that non-critical warnings and error messages are presented to the
+      window.addEventListener("load", function () {
+          setTimeout(function () {
+            document.getElementById("loading-animation").style.display = "none"; // Hide the loading animation
+            document.getElementById("white-overlay").style.display = "none"; // Hide the white overlay
+          }, 4000); // 4000 milliseconds = 4 seconds
+        });
       // user.
       function unityShowBanner(msg, type) {
         function updateBannerVisibility() {
@@ -107,9 +111,9 @@
           progressBarFull.style.width = 100 * progress + "%";
               }).then((unityInstance) => {
                 loadingBar.style.display = "none";
-                fullscreenButton.onclick = () => {
-                  unityInstance.SetFullscreen(1);
-                };
+                // fullscreenButton.onclick = () => {
+                //   unityInstance.SetFullscreen(1);
+                // };
               }).catch((message) => {
                 alert(message);
               });
